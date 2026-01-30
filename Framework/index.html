@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrated Implementation Science Frameworks - OTC Program Evaluation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .framework-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* RE-AIM Framework - Top Layer */
+        .reaim-layer {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .reaim-layer::before {
+            content: 'RE-AIM FRAMEWORK (Evaluation Dimensions)';
+            position: absolute;
+            top: -30px;
+            left: 0;
+            font-weight: 700;
+            color: #34495e;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        .reaim-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 15px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .reaim-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .reaim-title {
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+
+        .reaim-desc {
+            font-size: 0.85em;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+
+        /* CFIR Framework - Middle Layer */
+        .cfir-layer {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .cfir-layer::before {
+            content: 'CFIR DOMAINS (Barriers & Enablers)';
+            position: absolute;
+            top: -30px;
+            left: 0;
+            font-weight: 700;
+            color: #34495e;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        .cfir-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px 15px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cfir-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.4);
+        }
+
+        .cfir-title {
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .cfir-desc {
+            font-size: 0.8em;
+            opacity: 0.95;
+            line-height: 1.3;
+        }
+
+        /* Proctor's Outcomes - Side Panel */
+        .proctor-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .proctor-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .proctor-panel::before {
+            content: 'PROCTOR\'S IMPLEMENTATION OUTCOMES';
+            position: absolute;
+            top: -25px;
+            left: 0;
+            font-weight: 700;
+            color: #34495e;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        .proctor-title {
+            font-weight: 700;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .outcome-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .outcome-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            transition: background 0.3s ease;
+        }
+
+        .outcome-item:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .outcome-name {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .outcome-relation {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        /* TfA Panel */
+        .tfa-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .tfa-panel::before {
+            content: 'TfA - ACCEPTABILITY CONSTRUCTS';
+            position: absolute;
+            top: -25px;
+            left: 0;
+            font-weight: 700;
+            color: #34495e;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        .tfa-title {
+            font-weight: 700;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .tfa-constructs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tfa-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .tfa-item:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .tfa-name {
+            font-weight: 600;
+            margin-bottom: 3px;
+            font-size: 0.95em;
+        }
+
+        .tfa-desc {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        /* Connection Legend */
+        .legend {
+            margin-top: 40px;
+            padding: 25px;
+            background: #ecf0f1;
+            border-radius: 12px;
+            border-left: 5px solid #3498db;
+        }
+
+        .legend-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .legend-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            color: #34495e;
+            line-height: 1.6;
+        }
+
+        .legend-item {
+            font-size: 0.9em;
+        }
+
+        .legend-item strong {
+            color: #2c3e50;
+        }
+
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            background-color: #34495e;
+            color: white;
+            text-align: left;
+            border-radius: 8px;
+            padding: 12px;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85em;
+            line-height: 1.5;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .reaim-layer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .cfir-layer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .outcome-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .reaim-layer {
+                grid-template-columns: 1fr;
+            }
+            
+            .cfir-layer {
+                grid-template-columns: 1fr;
+            }
+            
+            .proctor-container {
+                flex-direction: column;
+            }
+            
+            .legend-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+            
+            .reaim-box, .cfir-box, .proctor-panel, .tfa-panel {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Integrated Implementation Science Frameworks</h1>
+        <p class="subtitle">Evaluating OTC Provision in Paediatric Oncology Care</p>
+
+        <div class="framework-diagram">
+            <!-- RE-AIM Framework -->
+            <div class="reaim-layer">
+                <div class="reaim-box tooltip">
+                    <div class="reaim-title">REACH</div>
+                    <div class="reaim-desc">Number, proportion & representativeness of participants</div>
+                    <span class="tooltip-text">
+                        <strong>Assessment:</strong> Track eligible patients completing each OTC care pathway step. 
+                        <br><br><strong>Overlap:</strong> Related to Proctor's "Penetration"
+                    </span>
+                </div>
+
+                <div class="reaim-box tooltip">
+                    <div class="reaim-title">EFFECTIVENESS</div>
+                    <div class="reaim-desc">Achievement of intended outcomes</div>
+                    <span class="tooltip-text">
+                        <strong>Assessment:</strong> Impact on patients and caregivers, care experience quality, rationales for OTC decisions.
+                        <br><br><strong>Overlap:</strong> Links to TfA's "Perceived Effectiveness"
+                    </span>
+                </div>
+
+                <div class="reaim-box tooltip">
+                    <div class="reaim-title">ADOPTION</div>
+                    <div class="reaim-desc">Number, proportion & representativeness of settings/providers</div>
+                    <span class="tooltip-text">
+                        <strong>Assessment:</strong> Pathway completion across divisions, provider integration into practice.
+                        <br><br><strong>Overlap:</strong> Core Proctor Implementation Outcome
+                    </span>
+                </div>
+
+                <div class="reaim-box tooltip">
+                    <div class="reaim-title">IMPLEMENTATION</div>
+                    <div class="reaim-desc">Process, fidelity, adaptations</div>
+                    <span class="tooltip-text">
+                        <strong>Assessment:</strong> Implementation strategies, process description, adaptations made. Informed by CFIR domains.
+                        <br><br><strong>Overlap:</strong> Related to Proctor's "Fidelity"
+                    </span>
+                </div>
+
+                <div class="reaim-box tooltip">
+                    <div class="reaim-title">MAINTENANCE</div>
+                    <div class="reaim-desc">Extent integrated into routine practice</div>
+                    <span class="tooltip-text">
+                        <strong>Assessment:</strong> Sustainability potential, resources needed for continuation.
+                        <br><br><strong>Overlap:</strong> Related to Proctor's "Sustainability"
+                    </span>
+                </div>
+            </div>
+
+            <!-- CFIR Framework -->
+            <div class="cfir-layer">
+                <div class="cfir-box tooltip">
+                    <div class="cfir-title">Innovation</div>
+                    <div class="cfir-desc">The OTC care program being implemented</div>
+                    <span class="tooltip-text">
+                        <strong>Focus:</strong> Characteristics of the OTC care pathway, risk stratification criteria, and associated program elements.
+                    </span>
+                </div>
+
+                <div class="cfir-box tooltip">
+                    <div class="cfir-title">Inner Setting</div>
+                    <div class="cfir-desc">SickKids & MSF departments</div>
+                    <span class="tooltip-text">
+                        <strong>Focus:</strong> Hospital structures, departmental cultures, readiness for change, EMR integration capacity.
+                    </span>
+                </div>
+
+                <div class="cfir-box tooltip">
+                    <div class="cfir-title">Outer Setting</div>
+                    <div class="cfir-desc">Ontario healthcare context</div>
+                    <span class="tooltip-text">
+                        <strong>Focus:</strong> Provincial policies, healthcare system constraints, external guidelines, funding structures.
+                    </span>
+                </div>
+
+                <div class="cfir-box tooltip">
+                    <div class="cfir-title">Individuals</div>
+                    <div class="cfir-desc">Roles & characteristics of implementers</div>
+                    <span class="tooltip-text">
+                        <strong>Focus:</strong> Oncologists, gynecologists, embryologists, nurses, working groups - their knowledge, attitudes, self-efficacy.
+                    </span>
+                </div>
+
+                <div class="cfir-box tooltip">
+                    <div class="cfir-title">Process</div>
+                    <div class="cfir-desc">Implementation activities & strategies</div>
+                    <span class="tooltip-text">
+                        <strong>Focus:</strong> Education, training, EMR prompts, audit & feedback, working group activities, pathway development.
+                    </span>
+                </div>
+            </div>
+
+            <!-- Proctor's Outcomes & TfA -->
+            <div class="proctor-container">
+                <div class="proctor-panel">
+                    <div class="proctor-title">Implementation Outcomes</div>
+                    <div class="outcome-list">
+                        <div class="outcome-item tooltip">
+                            <div class="outcome-name">Adoption</div>
+                            <div class="outcome-relation">Maps to RE-AIM</div>
+                            <span class="tooltip-text">Provider uptake and integration of OTC care provision into practice</span>
+                        </div>
+
+                        <div class="outcome-item tooltip">
+                            <div class="outcome-name">Acceptability</div>
+                            <div class="outcome-relation">Assessed via TfA</div>
+                            <span class="tooltip-text">Stakeholder perceptions of appropriateness - measured through TfA constructs</span>
+                        </div>
+
+                        <div class="outcome-item tooltip">
+                            <div class="outcome-name">Fidelity</div>
+                            <div class="outcome-relation">Within Implementation</div>
+                            <span class="tooltip-text">Consistency of OTC pathway delivery across settings and providers</span>
+                        </div>
+
+                        <div class="outcome-item tooltip">
+                            <div class="outcome-name">Penetration</div>
+                            <div class="outcome-relation">Similar to Reach</div>
+                            <span class="tooltip-text">Integration level within service settings; division-level uptake patterns</span>
+                        </div>
+
+                        <div class="outcome-item tooltip">
+                            <div class="outcome-name">Sustainability</div>
+                            <div class="outcome-relation">Similar to Maintenance</div>
+                            <span class="tooltip-text">Potential for long-term continuation and organizational integration</span>
+                        </div>
+
+                        <div class="outcome-item tooltip">
+                            <div class="outcome-name">Appropriateness</div>
+                            <div class="outcome-relation">Context-specific fit</div>
+                            <span class="tooltip-text">Perceived fit of OTC care for paediatric oncology settings</span>
+                        </div>
+
+                        <div class="outcome-item tooltip">
+                            <div class="outcome-name">Feasibility</div>
+                            <div class="outcome-relation">Implementation viability</div>
+                            <span class="tooltip-text">Extent to which OTC provision can be successfully carried out</span>
+                        </div>
+
+                        <div class="outcome-item tooltip">
+                            <div class="outcome-name">Cost</div>
+                            <div class="outcome-relation">Resource implications</div>
+                            <span class="tooltip-text">Financial and resource requirements for implementation and maintenance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tfa-panel">
+                    <div class="tfa-title">Acceptability Constructs</div>
+                    <div class="tfa-constructs">
+                        <div class="tfa-item tooltip">
+                            <div class="tfa-name">Affective Attitude</div>
+                            <div class="tfa-desc">Emotions towards OTC provision</div>
+                            <span class="tooltip-text">How patients, caregivers, and providers feel about offering/receiving OTC care</span>
+                        </div>
+
+                        <div class="tfa-item tooltip">
+                            <div class="tfa-name">Burden</div>
+                            <div class="tfa-desc">Effort needed to participate</div>
+                            <span class="tooltip-text">Perceived time, energy, and difficulty involved in OTC care pathway</span>
+                        </div>
+
+                        <div class="tfa-item tooltip">
+                            <div class="tfa-name">Ethicality</div>
+                            <div class="tfa-desc">Fit with individual values</div>
+                            <span class="tooltip-text">Alignment with personal, professional, and cultural values</span>
+                        </div>
+
+                        <div class="tfa-item tooltip">
+                            <div class="tfa-name">Intervention Coherence</div>
+                            <div class="tfa-desc">Understanding OTC provision</div>
+                            <span class="tooltip-text">Clarity about the OTC process, rationale, and expected outcomes</span>
+                        </div>
+
+                        <div class="tfa-item tooltip">
+                            <div class="tfa-name">Opportunity Costs</div>
+                            <div class="tfa-desc">What is given up to participate</div>
+                            <span class="tooltip-text">Trade-offs and sacrifices made to engage with OTC care</span>
+                        </div>
+
+                        <div class="tfa-item tooltip">
+                            <div class="tfa-name">Perceived Effectiveness</div>
+                            <div class="tfa-desc">Belief OTC provision will work</div>
+                            <span class="tooltip-text">Confidence in the ability of OTC to preserve fertility and achieve outcomes</span>
+                        </div>
+
+                        <div class="tfa-item tooltip">
+                            <div class="tfa-name">Self-Efficacy</div>
+                            <div class="tfa-desc">Confidence to fully participate</div>
+                            <span class="tooltip-text">Belief in one's ability to successfully engage with the OTC care pathway</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integration Legend -->
+            <div class="legend">
+                <div class="legend-title">Framework Integration & Relationships</div>
+                <div class="legend-content">
+                    <div class="legend-item">
+                        <strong>RE-AIM</strong> provides the overarching evaluation structure with five dimensions guiding comprehensive assessment of implementation impact.
+                    </div>
+                    <div class="legend-item">
+                        <strong>CFIR</strong> informs the Implementation dimension by identifying barriers and enablers across five domains that affect program delivery.
+                    </div>
+                    <div class="legend-item">
+                        <strong>Proctor's Taxonomy</strong> defines specific implementation outcomes, with several overlapping RE-AIM dimensions (Adoption, Penetration/Reach, Sustainability/Maintenance, Fidelity/Implementation).
+                    </div>
+                    <div class="legend-item">
+                        <strong>TfA</strong> operationalizes Acceptability (a Proctor outcome) through seven measurable constructs assessed among patients, caregivers, and providers.
+                    </div>
+                    <div class="legend-item">
+                        <strong>Formative Evaluation</strong> uses findings from all frameworks to inform ongoing implementation refinements and strategy adjustments.
+                    </div>
+                    <div class="legend-item">
+                        <strong>Summative Evaluation</strong> assesses overall implementation success at study end using all framework dimensions to inform optimization and sustainability.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scroll behavior
+        document.querySelectorAll('.reaim-box, .cfir-box, .outcome-item, .tfa-item').forEach(element => {
+            element.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // Print functionality
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                e.preventDefault();
+                window.print();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTC Care Pathway - REACH Diagram</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 2.2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        .pathway {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+        
+        .step:nth-child(1) { animation-delay: 0.1s; }
+        .step:nth-child(2) { animation-delay: 0.2s; }
+        .step:nth-child(3) { animation-delay: 0.3s; }
+        .step:nth-child(4) { animation-delay: 0.4s; }
+        .step:nth-child(5) { animation-delay: 0.5s; }
+        .step:nth-child(6) { animation-delay: 0.6s; }
+        .step:nth-child(7) { animation-delay: 0.7s; }
+        .step:nth-child(8) { animation-delay: 0.8s; }
+        .step:nth-child(9) { animation-delay: 0.9s; }
+        .step:nth-child(10) { animation-delay: 1.0s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .step-number {
+            min-width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+            background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%);
+            padding: 20px 25px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .step-content:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .step-title {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .step-description {
+            color: #718096;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        
+        .connector {
+            position: absolute;
+            left: 25px;
+            top: 50px;
+            width: 2px;
+            height: calc(100% - 30px);
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            opacity: 0.3;
+        }
+        
+        .step:last-child .connector {
+            display: none;
+        }
+        
+        .final-step .step-title,
+        .final-step .step-description {
+            color: white;
+        }
+        
+        .legend {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .team-legend {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .team-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .team-badge.oncology {
+            background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+        }
+        
+        .team-badge.ped-gyn {
+            background: linear-gradient(135deg, #d53f8c 0%, #97266d 100%);
+        }
+        
+        .team-badge.rei {
+            background: linear-gradient(135deg, #38a169 0%, #276749 100%);
+        }
+        
+        .team-badge.collaborative {
+            background: linear-gradient(135deg, #805ad5 0%, #553c9a 100%);
+        }
+        
+        /* Oncology steps (1-4) */
+        .step:nth-child(1) .step-number,
+        .step:nth-child(2) .step-number,
+        .step:nth-child(3) .step-number,
+        .step:nth-child(4) .step-number {
+            background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+            box-shadow: 0 4px 15px rgba(49, 130, 206, 0.4);
+        }
+        
+        .step:nth-child(1) .step-content,
+        .step:nth-child(2) .step-content,
+        .step:nth-child(3) .step-content,
+        .step:nth-child(4) .step-content {
+            border-left: 4px solid #3182ce;
+        }
+        
+        /* Paediatric Gynaecology steps (5, 6, 9) */
+        .step:nth-child(5) .step-number,
+        .step:nth-child(6) .step-number,
+        .step:nth-child(9) .step-number {
+            background: linear-gradient(135deg, #d53f8c 0%, #97266d 100%);
+            box-shadow: 0 4px 15px rgba(213, 63, 140, 0.4);
+        }
+        
+        .step:nth-child(5) .step-content,
+        .step:nth-child(6) .step-content,
+        .step:nth-child(9) .step-content {
+            border-left: 4px solid #d53f8c;
+        }
+        
+        /* REI at MSF steps (7, 8) */
+        .step:nth-child(7) .step-number,
+        .step:nth-child(8) .step-number {
+            background: linear-gradient(135deg, #38a169 0%, #276749 100%);
+            box-shadow: 0 4px 15px rgba(56, 161, 105, 0.4);
+        }
+        
+        .step:nth-child(7) .step-content,
+        .step:nth-child(8) .step-content {
+            border-left: 4px solid #38a169;
+        }
+        
+        /* Collaborative step (10) */
+        .step:nth-child(10) .step-number {
+            background: linear-gradient(135deg, #805ad5 0%, #553c9a 100%);
+            box-shadow: 0 4px 15px rgba(128, 90, 213, 0.4);
+        }
+        
+        .step:nth-child(10) .step-content {
+            background: linear-gradient(135deg, #805ad5 0%, #553c9a 100%);
+            border-left: 4px solid #6b46c1;
+        }
+        
+        .legend-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .legend-text {
+            color: #718096;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 1.6em;
+            }
+            
+            .subtitle {
+                font-size: 0.95em;
+            }
+            
+            .step {
+                gap: 15px;
+            }
+            
+            .step-number {
+                min-width: 40px;
+                height: 40px;
+                font-size: 1em;
+            }
+            
+            .step-content {
+                padding: 15px;
+            }
+            
+            .connector {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OTC Care Pathway: Reach Analysis</h1>
+        <div class="subtitle">
+            Tracking patient flow through the Ovarian Tissue Cryopreservation pathway<br>
+            <strong>Study Period:</strong> May 2025 - May 2027
+        </div>
+        
+        <div class="team-legend">
+            <div class="team-badge oncology">Oncology Team</div>
+            <div class="team-badge ped-gyn">Paediatric Gynaecology</div>
+            <div class="team-badge rei">REI at MSF</div>
+            <div class="team-badge collaborative">Collaborative (MSF + Ped Gyn)</div>
+        </div>
+        
+        <div class="pathway">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-title">Diagnosis & Eligibility</div>
+                    <div class="step-description">Patients with ovaries newly diagnosed with cancer or requiring gonadotoxic treatment for benign indication</div>
+                </div>
+                <div class="connector"></div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-title">Fertility Risk Assessment</div>
+                    <div class="step-description">Patient receives formal fertility risk assessment based on diagnosis and planned treatment</div>
+                </div>
+                <div class="connector"></div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-title">Initial Fertility Discussion</div>
+                    <div class="step-description">Primary oncologist discusses fertility preservation options and risks with patient/family</div>
+                </div>
+                <div class="connector"></div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <div class="step-title">Referral to Paediatric Gynaecology</div>
+                    <div class="step-description">Patient referred to paediatric gynaecology for specialized fertility preservation consultation</div>
+                </div>
+                <div class="connector"></div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <div class="step-title">Paediatric Gynaecology Consultation</div>
+                    <div class="step-description">Initial consultation with paediatric gynaecology team to discuss OTC procedure and options</div>
+                </div>
+                <div class="connector"></div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <div class="step-title">Referral to Mount Sinai Fertility (MSF)</div>
+                    <div class="step-description">Patient referred to MSF for comprehensive fertility preservation assessment and counseling</div>
+                </div>
+                <div class="connector"></div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">7</div>
+                <div class="step-content">
+                    <div class="step-title">MSF Consultation</div>
+                    <div class="step-description">Detailed consultation at Mount Sinai Fertility clinic regarding fertility preservation options and long-term planning</div>
+                </div>
+                <div class="connector"></div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">8</div>
+                <div class="step-content">
+                    <div class="step-title">Referral Back to Paediatric Gynaecology</div>
+                    <div class="step-description">Patient referred back to paediatric gynaecology to initiate OTC procedure scheduling</div>
+                </div>
+                <div class="connector"></div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">9</div>
+                <div class="step-content">
+                    <div class="step-title">Surgery Booking & Pre-Procedural Care</div>
+                    <div class="step-description">Surgery scheduled, patient receives necessary pre-operative assessments and preparation from paediatric gynaecology team</div>
+                </div>
+                <div class="connector"></div>
+            </div>
+            
+            <div class="step final-step">
+                <div class="step-number">10</div>
+                <div class="step-content">
+                    <div class="step-title">OTC Procedure & Tissue Processing</div>
+                    <div class="step-description">Patient undergoes ovarian tissue cryopreservation surgical procedure (tissue harvesting by paediatric gynaecology), followed by tissue processing and cryogenic storage at MSF</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-title">Reach Metric Definition</div>
+            <div class="legend-text">
+                <strong>Reach</strong> measures the number and proportion of eligible patients who complete each step of the OTC care pathway. 
+                For each step, we calculate: (1) the absolute number of patients reaching that step, and (2) the proportion relative to 
+                the initial eligible population. This allows us to identify potential attrition points and optimize the pathway for 
+                maximum patient access to fertility preservation services.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
