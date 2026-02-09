@@ -226,19 +226,20 @@
             text-decoration: underline;
         }
         
-        .tag {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            margin-right: 8px;
-            margin-top: 10px;
-        }
-        
+		.tag {
+			display: inline-block;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			padding: 5px 12px;
+			border-radius: 20px;
+			font-size: 0.85em;
+			margin-right: 8px;
+			margin-top: 10px;
+			box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+		}
+ 
         .tag.oncofertility {
-            background: #764ba2;
+            background: linear-gradient(135deg, #764ba2 0%, #9b6bb8 100%);
         }
         
         .tag.implementation {
@@ -246,7 +247,7 @@
         }
         
         .tag.qualitative {
-            background: #f093fb;
+			background: linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%);
         }
         
         .checklist {
@@ -941,7 +942,7 @@
 
         // Update active nav item on scroll
         window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('.section, #team, #overview');
+            const sections = document.querySelectorAll('.section, #team, #overview, #frameworks');
             const navLinks = document.querySelectorAll('.nav-menu a');
             
             let current = '';
