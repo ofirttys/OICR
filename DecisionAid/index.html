@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fertility Preservation Decision Aid — Adolescents with Cancer</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:       #1a7a72;
+    --teal-light: #d4edea;
+    --teal-mid:   #2a9d8f;
+    --amber:      #e9a84c;
+    --amber-light:#fdf3e3;
+    --slate:      #2d3748;
+    --slate-mid:  #4a5568;
+    --muted:      #718096;
+    --bg:         #f7f9f8;
+    --white:      #ffffff;
+    --border:     #e2e8f0;
+    --oc-color:   #2a6496;
+    --oc-light:   #dbeafe;
+    --otc-color:  #276749;
+    --otc-light:  #d1fae5;
+    --warn:       #c05621;
+    --warn-light: #fef3c7;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    background: var(--bg);
+    color: var(--slate);
+  }
+
+  /* ── HERO ────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, #0d4f4a 0%, #1a7a72 60%, #2a9d8f 100%);
+    color: white;
+    padding: 56px 40px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 800px; margin: 0 auto; position: relative; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .hero p {
+    font-size: 1.05rem;
+    opacity: 0.88;
+    max-width: 620px;
+    margin-bottom: 28px;
+  }
+  .hero-note {
+    background: rgba(255,255,255,0.12);
+    border-left: 3px solid var(--amber);
+    border-radius: 4px;
+    padding: 12px 18px;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    max-width: 620px;
+  }
+
+  /* ── NAV ────────────────────────────────── */
+  .section-nav {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .section-nav ul {
+    display: flex;
+    list-style: none;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow-x: auto;
+    padding: 0 16px;
+    gap: 0;
+    scrollbar-width: none;
+  }
+  .section-nav ul::-webkit-scrollbar { display: none; }
+  .section-nav a {
+    display: block;
+    padding: 14px 18px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .section-nav a:hover { color: var(--teal); border-bottom-color: var(--teal); }
+
+  /* ── LAYOUT ─────────────────────────────── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  section { margin-bottom: 64px; }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .section-label .num {
+    width: 36px; height: 36px;
+    background: var(--teal);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .section-label h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--slate);
+  }
+
+  .divider {
+    border: none;
+    border-top: 2px solid var(--teal-light);
+    margin-bottom: 40px;
+  }
+
+  /* ── CALLOUT BOXES ──────────────────────── */
+  .callout {
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+  }
+  .callout.info { background: var(--teal-light); border-left: 4px solid var(--teal); }
+  .callout.warn { background: var(--warn-light); border-left: 4px solid var(--warn); }
+  .callout strong { display: block; margin-bottom: 4px; font-weight: 600; }
+
+  /* ── ABOUT ──────────────────────────────── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 600px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .about-card h3 {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--teal);
+    margin-bottom: 10px;
+  }
+  .about-card ul { padding-left: 18px; }
+  .about-card li { margin-bottom: 4px; font-size: 0.92rem; }
+
+  /* ── BACKGROUND SECTION ─────────────────── */
+  .bg-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 640px) { .bg-two-col { grid-template-columns: 1fr; } }
+  .bg-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+  }
+  .bg-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--teal);
+  }
+  .bg-card p { font-size: 0.93rem; margin-bottom: 10px; }
+  .bg-card ul { padding-left: 18px; font-size: 0.93rem; }
+  .bg-card li { margin-bottom: 6px; }
+
+  .follicle-diagram {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-top: 20px;
+  }
+  .follicle-diagram h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+    color: var(--slate);
+    text-align: center;
+  }
+  .follicle-stages {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .stage {
+    flex: 1;
+    min-width: 80px;
+    text-align: center;
+  }
+  .stage-dot {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    border: 3px solid;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .stage-name { font-size: 0.72rem; font-weight: 600; color: var(--slate-mid); line-height: 1.3; }
+  .stage-sub  { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+  .arrow { font-size: 1.2rem; color: var(--muted); align-self: center; flex-shrink: 0; padding-bottom: 24px; }
+  .target-oc  { background: var(--oc-light); border-color: var(--oc-color); }
+  .target-otc { background: var(--otc-light); border-color: var(--otc-color); }
+  .target-none { background: #f1f5f9; border-color: #94a3b8; }
+  .legend {
+    display: flex; gap: 20px; justify-content: center;
+    margin-top: 16px; flex-wrap: wrap;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 600; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+  /* ── COMPARISON TABLE ───────────────────── */
+  .compare-intro { margin-bottom: 24px; }
+  .compare-intro p { color: var(--slate-mid); font-size: 0.95rem; }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .compare-table th {
+    padding: 16px 18px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: left;
+  }
+  .compare-table th.oc-head { background: var(--oc-color); color: white; }
+  .compare-table th.otc-head { background: var(--otc-color); color: white; }
+  .compare-table th.cat-head {
+    background: var(--slate);
+    color: white;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    width: 22%;
+  }
+  .compare-table td {
+    padding: 14px 18px;
+    font-size: 0.91rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:nth-child(even) td { background: #f8fafc; }
+  .compare-table tr:nth-child(odd) td { background: white; }
+  .compare-table .cat-cell {
+    background: #edf2f7 !important;
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--slate-mid);
+  }
+  .pro { color: #276749; }
+  .con { color: #9b2226; }
+  .neutral { color: var(--slate-mid); }
+  .badge {
+    display: inline-block;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+  .badge-green { background: var(--otc-light); color: var(--otc-color); }
+  .badge-blue  { background: var(--oc-light);  color: var(--oc-color); }
+  .badge-warn  { background: var(--warn-light); color: var(--warn); }
+
+  /* ── OUTCOMES ────────────────────────────── */
+  .outcome-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 640px) { .outcome-cards { grid-template-columns: 1fr; } }
+  .outcome-card {
+    border-radius: 10px;
+    padding: 22px;
+    border: 2px solid;
+  }
+  .outcome-card.oc { border-color: var(--oc-color); background: white; }
+  .outcome-card.otc { border-color: var(--otc-color); background: white; }
+  .outcome-card h3 {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid;
+  }
+  .outcome-card.oc h3 { color: var(--oc-color); border-color: var(--oc-light); }
+  .outcome-card.otc h3 { color: var(--otc-color); border-color: var(--otc-light); }
+  .stat-row {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 0.88rem;
+  }
+  .stat-val {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    display: block;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .stat-desc { font-size: 0.8rem; color: var(--muted); }
+  .gap-note {
+    background: var(--warn-light);
+    border: 1px solid #fbd38d;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.83rem;
+    color: var(--warn);
+    margin-top: 12px;
+    font-style: italic;
+  }
+
+  /* ── VALUES EXERCISE ─────────────────────── */
+  .values-intro { margin-bottom: 20px; font-size: 0.95rem; color: var(--slate-mid); }
+  .values-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .values-table thead th {
+    padding: 12px 16px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: center;
+  }
+  .values-table thead th:first-child { text-align: left; background: var(--slate); color: white; }
+  .values-table thead th.oc-h { background: var(--oc-color); color: white; }
+  .values-table thead th.otc-h { background: var(--otc-color); color: white; }
+  .values-table tbody td {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .values-table tbody tr:last-child td { border-bottom: none; }
+  .values-table tbody tr:nth-child(even) td { background: #f8fafc; }
+  .values-table tbody tr:nth-child(odd) td { background: white; }
+  .values-table .check-cell { text-align: center; }
+  .values-table input[type=checkbox] {
+    width: 18px; height: 18px; cursor: pointer;
+    accent-color: var(--teal);
+  }
+  .values-table .factor-label { font-weight: 500; }
+  .values-table .factor-sub  { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+
+  /* ── QUESTIONS ───────────────────────────── */
+  .questions-list {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .q-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .q-item:last-child { border-bottom: none; }
+  .q-num {
+    width: 26px; height: 26px; min-width: 26px;
+    background: var(--teal-light);
+    color: var(--teal);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .q-text { font-size: 0.92rem; }
+
+  /* ── GLOSSARY ────────────────────────────── */
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 580px) { .glossary-grid { grid-template-columns: 1fr; } }
+  .gloss-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  .gloss-term { font-weight: 700; font-size: 0.88rem; color: var(--teal); margin-bottom: 4px; }
+  .gloss-def  { font-size: 0.84rem; color: var(--slate-mid); }
+
+  /* ── NEXT STEPS ──────────────────────────── */
+  .next-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 640px) { .next-grid { grid-template-columns: 1fr; } }
+  .next-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  .next-card .icon { font-size: 2rem; margin-bottom: 10px; }
+  .next-card h3 { font-weight: 700; font-size: 0.9rem; margin-bottom: 8px; color: var(--slate); }
+  .next-card p { font-size: 0.85rem; color: var(--muted); }
+
+  /* ── FOOTER ──────────────────────────────── */
+  footer {
+    background: var(--slate);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 28px 24px;
+    font-size: 0.82rem;
+    line-height: 1.8;
+  }
+  footer strong { color: white; }
+
+  /* ── PRINT BUTTON ────────────────────────── */
+  .print-btn {
+    display: inline-block;
+    background: var(--amber);
+    color: var(--slate);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .print-btn:hover { background: #d4924a; }
+
+  @media print {
+    .section-nav, .print-btn { display: none; }
+    .hero { background: var(--teal) !important; }
+    body { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-badge">⚠️ Alpha Draft — For Clinician Review Only</span>
+    <h1>Fertility Preservation in Adolescents with Cancer</h1>
+    <p>A decision aid to help you and your family understand and compare your two main fertility preservation options: <strong>Egg Freezing</strong> and <strong>Ovarian Tissue Freezing</strong>.</p>
+    <div class="hero-note">
+      <strong>Who is this for?</strong> This decision aid is for post-pubertal adolescents with ovaries who are about to begin gonadotoxic (cancer-related) treatment, and their parents or guardians. It is meant to be used together with your fertility specialist's advice — not instead of it.
+    </div>
+    <button class="print-btn" onclick="window.print()">🖨 Print this page</button>
+  </div>
+</header>
+
+<!-- STICKY NAV -->
+<nav class="section-nav">
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#options">Your Options</a></li>
+    <li><a href="#outcomes">Outcomes</a></li>
+    <li><a href="#values">What Matters to You</a></li>
+    <li><a href="#questions">Questions to Ask</a></li>
+    <li><a href="#glossary">Glossary</a></li>
+    <li><a href="#next">Next Steps</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- SECTION 1: ABOUT -->
+  <section id="about">
+    <div class="section-label">
+      <div class="num">1</div>
+      <h2>About This Decision Aid</h2>
+    </div>
+    <hr class="divider">
+
+    <div class="callout info">
+      <strong>This is an early-stage prototype.</strong>
+      Content is based on the manuscript "Fertility Preservation in Adolescents: Oocyte versus Ovarian Tissue Cryopreservation" (Michaeli et al., 2026). Probability estimates, visuals, and patient-facing language will require validation through patient advisory groups and expert review before clinical use.
+    </div>
+
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>What this includes</h3>
+        <ul>
+          <li>How cancer treatment affects fertility</li>
+          <li>What egg freezing (OC) involves</li>
+          <li>What ovarian tissue freezing (OTC) involves</li>
+          <li>A side-by-side comparison of both options</li>
+          <li>An exercise to help you think about what matters most to you</li>
+          <li>Questions to bring to your appointment</li>
+        </ul>
+      </div>
+      <div class="about-card">
+        <h3>How to use it</h3>
+        <ul>
+          <li>Read each section together as a family</li>
+          <li>Complete the "What Matters to You" exercise on page 5</li>
+          <li>Bring your notes and questions to your fertility specialist</li>
+          <li>Talk with your oncology team about timing — decisions need to be made quickly</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: BACKGROUND -->
+  <section id="background">
+    <div class="section-label">
+      <div class="num">2</div>
+      <h2>How Cancer Treatment Affects Fertility</h2>
+    </div>
+    <hr class="divider">
+
+    <div class="bg-two-col">
+      <div class="bg-card">
+        <h3>Your ovaries and your eggs</h3>
+        <p>You are born with all the eggs you will ever have — about 1 million at birth, declining to roughly 300,000 by puberty. Eggs exist at different stages of development inside your ovaries:</p>
+        <ul>
+          <li><strong>Primordial follicles</strong> — the vast majority; tiny, dormant, and protected deep in the ovary</li>
+          <li><strong>Growing follicles</strong> — gradually maturing over 90–150 days</li>
+          <li><strong>Antral follicles</strong> — the small group visible on ultrasound each month</li>
+          <li><strong>Mature (MII) eggs</strong> — the only eggs that can be fertilized; ~1 per month naturally</li>
+        </ul>
+      </div>
+      <div class="bg-card">
+        <h3>What chemotherapy does</h3>
+        <p>Many chemotherapy drugs, particularly <strong>cyclophosphamide</strong> and the alkylating agents used in stem cell transplant preparation, damage the ovarian follicle pool. This can cause:</p>
+        <ul>
+          <li>Reduced egg supply (reduced ovarian reserve)</li>
+          <li>Premature menopause (ovaries stop working before age 40)</li>
+          <li>Difficulty or inability to become pregnant naturally</li>
+          <li>Loss of hormone production, affecting puberty and bone health</li>
+        </ul>
+        <p style="margin-top:10px;"><em>The extent of damage depends on the type and dose of chemotherapy, and your age.</em></p>
+      </div>
+    </div>
+
+    <!-- Follicle diagram -->
+    <div class="follicle-diagram">
+      <h3>Which follicles does each option target?</h3>
+      <div class="follicle-stages">
+        <div class="stage">
+          <div class="stage-dot target-otc">🟢</div>
+          <div class="stage-name">Primordial follicles</div>
+          <div class="stage-sub">Millions present; dormant</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="stage">
+          <div class="stage-dot target-none">⚪</div>
+          <div class="stage-name">Primary follicles</div>
+          <div class="stage-sub">Beginning to grow</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="stage">
+          <div class="stage-dot target-none">⚪</div>
+          <div class="stage-name">Secondary follicles</div>
+          <div class="stage-sub">Multi-layer growth</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="stage">
+          <div class="stage-dot target-oc">🔵</div>
+          <div class="stage-name">Antral follicles</div>
+          <div class="stage-sub">Visible on ultrasound</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="stage">
+          <div class="stage-dot target-oc">🔵</div>
+          <div class="stage-name">Mature MII egg</div>
+          <div class="stage-sub">Can be fertilized</div>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--oc-color)"></div> Targeted by Egg Freezing (OC)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--otc-color)"></div> Targeted by Ovarian Tissue Freezing (OTC)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#94a3b8"></div> Not accessible by either method</div>
+      </div>
+      <p style="font-size:0.82rem;color:var(--muted);text-align:center;margin-top:12px;"><em>Key point: OTC preserves a much larger and earlier follicle pool. OC captures only the small subset of eggs that are already mature.</em></p>
+    </div>
+
+    <div class="callout warn" style="margin-top:20px;">
+      <strong>⚠️ Important note about egg quality in adolescents</strong>
+      Research shows that aneuploidy (abnormal chromosome number) in eggs follows a U-shaped curve — it is <em>elevated</em> in adolescents, reaches a low point in young adulthood (ages 20–32), then rises again with age. This means adolescent eggs may have a higher rate of chromosomal errors than adult eggs, which can affect the chances of a successful pregnancy using frozen eggs.
+    </div>
+  </section>
+
+  <!-- SECTION 3: OPTIONS COMPARISON -->
+  <section id="options">
+    <div class="section-label">
+      <div class="num">3</div>
+      <h2>Your Two Options: Side-by-Side</h2>
+    </div>
+    <hr class="divider">
+
+    <div class="compare-intro">
+      <p>Both egg freezing and ovarian tissue freezing are real options for post-pubertal adolescents. Neither is right for everyone — the best choice depends on your medical situation, your values, and your goals. This table is a starting point for that conversation.</p>
+    </div>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th class="cat-head">Topic</th>
+          <th class="oc-head">🔵 Egg Freezing (OC)<br><span style="font-weight:400;font-size:0.8rem;">Oocyte Cryopreservation</span></th>
+          <th class="otc-head">🟢 Ovarian Tissue Freezing (OTC)<br><span style="font-weight:400;font-size:0.8rem;">Ovarian Tissue Cryopreservation</span></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr><td class="cat-cell" colspan="3">What It Involves</td></tr>
+        <tr>
+          <td>Procedure</td>
+          <td>Hormone injections daily for ~10–14 days to stimulate egg growth, then egg retrieval under sedation using a needle through the vagina or abdomen</td>
+          <td>A short laparoscopic (keyhole) surgery under general anesthesia to remove all or part of one ovary; tissue is frozen in strips</td>
+        </tr>
+        <tr>
+          <td>What is preserved</td>
+          <td>Mature eggs (MII oocytes) — ready to be fertilized in the future</td>
+          <td>Ovarian cortex tissue containing thousands of primordial (dormant) follicles — the bulk of your egg supply</td>
+        </tr>
+        <tr>
+          <td>How eggs are used later</td>
+          <td>Eggs are thawed, fertilized with sperm (IVF/ICSI), and transferred into the uterus as embryos</td>
+          <td>Tissue is thawed and transplanted back into the body; eggs can then mature naturally, leading to spontaneous pregnancy or IVF</td>
+        </tr>
+
+        <tr><td class="cat-cell" colspan="3">Timing & Urgency</td></tr>
+        <tr>
+          <td>Time before cancer treatment can start</td>
+          <td><span class="con">⏱ Requires 2–3 weeks delay</span> for ovarian stimulation. "Random start" protocols exist but add complexity.</td>
+          <td><span class="pro">✅ Can be done within days</span> — as soon as an operating room is available. No delay to cancer therapy (chemo can start within 24–48 hours).</td>
+        </tr>
+        <tr>
+          <td>Can it be done after chemotherapy starts?</td>
+          <td><span class="con">✗ No</span> — chemotherapy damages eggs in a way that makes OC inadvisable once treatment has begun</td>
+          <td><span class="pro">✓ Yes</span> — tissue can be harvested after some chemotherapy in selected situations, especially when a patient initially couldn't have the procedure</td>
+        </tr>
+
+        <tr><td class="cat-cell" colspan="3">Accessibility & Geography</td></tr>
+        <tr>
+          <td>Where can it be done?</td>
+          <td>Requires proximity to a fertility clinic with an embryology lab. Monitoring visits must be in-person, near the clinic.</td>
+          <td>Surgery can be performed at a local hospital; tissue is transported to a specialized cryopreservation centre (hub-and-spoke model)</td>
+        </tr>
+        <tr>
+          <td>Travel required?</td>
+          <td><span class="con">⚠️ Significant</span> — patient must stay near the fertility clinic for 2–3+ weeks</td>
+          <td><span class="pro">Minimal</span> — patient stays home; only the tissue travels to the specialized centre <em>("The patient stays — the tissue moves")</em></td>
+        </tr>
+
+        <tr><td class="cat-cell" colspan="3">Procedural Considerations for Adolescents</td></tr>
+        <tr>
+          <td>Physical demands</td>
+          <td>Daily self-injections, frequent blood draws and ultrasounds, vaginal exam or abdominal monitoring, sedation for retrieval. May be distressing for adolescents who have not been sexually active.</td>
+          <td>General anesthesia (one-time), laparoscopic surgery. Major complication rate reported as under 1–3.4% in pediatric/adolescent cohorts. Can be combined with other procedures under the same anesthetic.</td>
+        </tr>
+        <tr>
+          <td>Cultural / religious considerations</td>
+          <td>Vaginal access may be a concern in some cultural or religious contexts. Transabdominal or transrectal alternatives have been described in adults but are not well-studied in adolescents.</td>
+          <td>No vaginal procedure required. Surgery is performed abdominally.</td>
+        </tr>
+        <tr>
+          <td>Risk of ovarian hyperstimulation</td>
+          <td><span class="con">⚠️ Yes</span> — adolescents with high ovarian reserve are at increased risk. Mild in ~10%, severe in &lt;1%.</td>
+          <td>Not applicable</td>
+        </tr>
+
+        <tr><td class="cat-cell" colspan="3">Biological Considerations</td></tr>
+        <tr>
+          <td>Egg quality concerns</td>
+          <td><span class="con">⚠️ Important</span> — adolescent eggs have elevated aneuploidy (chromosome errors). More eggs may be needed to achieve a live birth compared to adults.</td>
+          <td>Primordial follicles are considered more resilient to cryoinjury. Long-term genetic effects of cryopreservation are still under study.</td>
+        </tr>
+        <tr>
+          <td>Restores natural hormone function?</td>
+          <td><span class="con">✗ No</span> — OC does not address hormone production. Does not prevent premature menopause.</td>
+          <td><span class="pro">✓ Yes</span> — in over 90% of cases, ovarian tissue transplantation restores hormone function and menstrual cycles within 4–5 months</td>
+        </tr>
+        <tr>
+          <td>Risk of reintroducing cancer cells</td>
+          <td>Not applicable</td>
+          <td><span class="con">⚠️ Theoretical risk</span> for patients with blood cancers (leukemia) or cancers that spread to the ovaries. Tissue is assessed before transplantation. Recent data support safety in leukemia patients who were in remission at time of harvest.</td>
+        </tr>
+
+        <tr><td class="cat-cell" colspan="3">Future Use</td></tr>
+        <tr>
+          <td>Future procedure to use preserved material</td>
+          <td>Egg thawing → ICSI fertilization → embryo transfer. Requires IVF clinic. Partner or donor sperm needed at time of use.</td>
+          <td>Tissue thawing → laparoscopic transplantation → natural or assisted conception. Spontaneous pregnancy is possible after transplantation.</td>
+        </tr>
+        <tr>
+          <td>Chance of spontaneous pregnancy?</td>
+          <td><span class="con">✗ No</span> — IVF is always required</td>
+          <td><span class="pro">✓ Yes</span> — spontaneous pregnancies have occurred after tissue transplantation</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SECTION 4: OUTCOMES -->
+  <section id="outcomes">
+    <div class="section-label">
+      <div class="num">4</div>
+      <h2>What Do We Know About Outcomes?</h2>
+    </div>
+    <hr class="divider">
+
+    <div class="callout warn">
+      <strong>⚠️ Important limitation</strong>
+      Most of the outcome data below come from adult patients. Data specific to adolescents are very limited. This means it is harder to predict your individual chances of future pregnancy. Your fertility specialist can discuss what these numbers mean for your specific situation.
+    </div>
+
+    <div class="outcome-cards" style="margin-top:24px;">
+      <div class="outcome-card oc">
+        <h3>🔵 Egg Freezing (OC)</h3>
+        <div class="stat-row">
+          <span class="stat-val">~90%</span>
+          <span class="stat-desc">of frozen eggs survive the thaw process (adult data)</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-val">70–75%</span>
+          <span class="stat-desc">of thawed eggs fertilize successfully (adult data)</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-val">39–47%</span>
+          <span class="stat-desc">live birth rate per transfer with 4–8 donor eggs (young donors — closest approximation to adolescent patients)</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-val">~14</span>
+          <span class="stat-desc">median eggs retrieved in adolescents aged 13–18 (Latif et al., 2025)</span>
+        </div>
+        <div class="gap-note">
+          ⚠️ Only <strong>1 live birth</strong> in an adolescent (&lt;18 years) has been reported from OC in the published literature (as of systematic review by Slonim et al., 2023). The optimal number of eggs to freeze for adolescents to achieve a live birth is unknown.
+        </div>
+      </div>
+
+      <div class="outcome-card otc">
+        <h3>🟢 Ovarian Tissue Freezing (OTC)</h3>
+        <div class="stat-row">
+          <span class="stat-val">&gt;90%</span>
+          <span class="stat-desc">of patients recover ovarian hormonal function after tissue transplantation</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-val">~32%</span>
+          <span class="stat-desc">live birth rate after OTC and transplantation (systematic review and meta-analysis, Ní Dhonnabháin et al., 2022)</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-val">9 years old</span>
+          <span class="stat-desc">youngest age at tissue cryopreservation where live birth has been reported after transplantation</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-val">✓</span>
+          <span class="stat-desc">Spontaneous pregnancies have been reported after transplantation in adolescent and adult patients</span>
+        </div>
+        <div class="gap-note">
+          ⚠️ Long-term reproductive outcome data in patients who cryopreserved tissue as adolescents remain limited. The transplantation step is a future surgery that not all patients may proceed with.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: VALUES EXERCISE -->
+  <section id="values">
+    <div class="section-label">
+      <div class="num">5</div>
+      <h2>What Matters Most to You?</h2>
+    </div>
+    <hr class="divider">
+
+    <p class="values-intro">Different factors matter to different people. This exercise helps you think about which considerations are most important to you and your family. Check the box in the column for the option that feels better to you for each factor — or both if they feel equal. There are no right answers.</p>
+
+    <table class="values-table">
+      <thead>
+        <tr>
+          <th style="width:50%;background:var(--slate);color:white;border-radius:10px 0 0 0;">Factor</th>
+          <th class="oc-h" style="width:25%;">🔵 Egg Freezing</th>
+          <th class="otc-h" style="width:25%;border-radius:0 10px 0 0;">🟢 Tissue Freezing</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="factor-label">I want to avoid delaying my cancer treatment</div><div class="factor-sub">OTC can be done within days; OC needs 2–3 weeks</div></td>
+          <td class="check-cell"><input type="checkbox"></td>
+          <td class="check-cell"><input type="checkbox"></td>
+        </tr>
+        <tr>
+          <td><div class="factor-label">I want to avoid surgery</div><div class="factor-sub">OC avoids general anesthesia; OTC requires a laparoscopic procedure</div></td>
+          <td class="check-cell"><input type="checkbox"></td>
+          <td class="check-cell"><input type="checkbox"></td>
+        </tr>
+        <tr>
+          <td><div class="factor-label">I want to avoid vaginal procedures</div><div class="factor-sub">OC requires vaginal or abdominal ultrasound and egg retrieval; OTC does not</div></td>
+          <td class="check-cell"><input type="checkbox"></td>
+          <td class="check-cell"><input type="checkbox"></td>
+        </tr>
+        <tr>
+          <td><div class="factor-label">I want to minimize travel away from home</div><div class="factor-sub">OTC allows tissue to be collected locally and transported; OC requires clinic proximity</div></td>
+          <td class="check-cell"><input type="checkbox"></td>
+          <td class="check-cell"><input type="checkbox"></td>
+        </tr>
+        <tr>
+          <td><div class="factor-label">I want the possibility of getting pregnant naturally (without IVF) in the future</div><div class="factor-sub">OTC transplantation can restore natural function; OC always requires IVF</div></td>
+          <td class="check-cell"><input type="checkbox"></td>
+          <td class="check-cell"><input type="checkbox"></td>
+        </tr>
+        <tr>
+          <td><div class="factor-label">I want to preserve my hormone function to avoid early menopause</div><div class="factor-sub">OTC can restore estrogen production; OC does not</div></td>
+          <td class="check-cell"><input type="checkbox"></td>
+          <td class="check-cell"><input type="checkbox"></td>
+        </tr>
+        <tr>
+          <td><div class="factor-label">I am concerned about cancer cells being in the preserved material</div><div class="factor-sub">OTC carries a theoretical risk of reintroducing malignant cells; OC does not</div></td>
+          <td class="check-cell"><input type="checkbox"></td>
+          <td class="check-cell"><input type="checkbox"></td>
+        </tr>
+        <tr>
+          <td><div class="factor-label">I want the option most studied in adults, with more known outcome data</div><div class="factor-sub">OC outcome data in adolescents is very scarce; OTC has more case reports in young patients</div></td>
+          <td class="check-cell"><input type="checkbox"></td>
+          <td class="check-cell"><input type="checkbox"></td>
+        </tr>
+        <tr>
+          <td><div class="factor-label">I am medically fragile or need to start treatment urgently</div><div class="factor-sub">OTC is feasible in urgent situations and in medically unstable patients; OC may not be</div></td>
+          <td class="check-cell"><input type="checkbox"></td>
+          <td class="check-cell"><input type="checkbox"></td>
+        </tr>
+        <tr>
+          <td><div class="factor-label">Religious, cultural, or personal values about how my eggs are used</div><div class="factor-sub">OC may create embryos that may not be used; OTC preserves tissue and does not require fertilization upfront</div></td>
+          <td class="check-cell"><input type="checkbox"></td>
+          <td class="check-cell"><input type="checkbox"></td>
+        </tr>
+        <tr>
+          <td><div class="factor-label">Other factors important to me:</div></td>
+          <td class="check-cell"><input type="checkbox"></td>
+          <td class="check-cell"><input type="checkbox"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout info" style="margin-top:20px;">
+      <strong>Which option are you leaning towards?</strong>
+      You do not have to decide after completing this exercise. Bring it to your appointment to discuss with your fertility specialist and your family.
+    </div>
+  </section>
+
+  <!-- SECTION 6: QUESTIONS -->
+  <section id="questions">
+    <div class="section-label">
+      <div class="num">6</div>
+      <h2>Questions to Ask Your Healthcare Team</h2>
+    </div>
+    <hr class="divider">
+
+    <p style="margin-bottom:20px;font-size:0.95rem;color:var(--slate-mid);">Don't be afraid to ask questions. Write down answers and bring these pages to your appointments.</p>
+
+    <div class="questions-list">
+      <div class="q-item"><div class="q-num">1</div><div class="q-text">What is my risk of infertility from my specific cancer treatment?</div></div>
+      <div class="q-item"><div class="q-num">2</div><div class="q-text">Do I have enough time to do egg freezing before I need to start treatment?</div></div>
+      <div class="q-item"><div class="q-num">3</div><div class="q-text">Am I a good candidate for ovarian tissue freezing given my diagnosis?</div></div>
+      <div class="q-item"><div class="q-num">4</div><div class="q-text">Is there a risk that my ovarian tissue might contain cancer cells?</div></div>
+      <div class="q-item"><div class="q-num">5</div><div class="q-text">How many eggs would I likely get if I did egg freezing — and is that enough given my age?</div></div>
+      <div class="q-item"><div class="q-num">6</div><div class="q-text">Can I do both egg freezing and ovarian tissue freezing? Would that be recommended for me?</div></div>
+      <div class="q-item"><div class="q-num">7</div><div class="q-text">Where would my ovarian tissue be stored and how would I access it in the future?</div></div>
+      <div class="q-item"><div class="q-num">8</div><div class="q-text">What are the costs? Is there any government funding or financial assistance available where I live?</div></div>
+      <div class="q-item"><div class="q-num">9</div><div class="q-text">If I plan to have a surrogate carry my pregnancy in the future, what do I need to know about how my eggs or tissue are preserved?</div></div>
+      <div class="q-item"><div class="q-num">10</div><div class="q-text">Where can I get emotional support to help me and my family through this decision?</div></div>
+      <div class="q-item"><div class="q-num">11</div><div class="q-text" contenteditable="true" style="outline:none;color:var(--muted);font-style:italic;" onfocus="if(this.innerText.trim()==='My question:')this.innerText=''" onblur="if(this.innerText.trim()==='')this.innerText='My question:'">My question:</div></div>
+      <div class="q-item"><div class="q-num">12</div><div class="q-text" contenteditable="true" style="outline:none;color:var(--muted);font-style:italic;" onfocus="if(this.innerText.trim()==='My question:')this.innerText=''" onblur="if(this.innerText.trim()==='')this.innerText='My question:'">My question:</div></div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: GLOSSARY -->
+  <section id="glossary">
+    <div class="section-label">
+      <div class="num">7</div>
+      <h2>Glossary of Terms</h2>
+    </div>
+    <hr class="divider">
+
+    <div class="glossary-grid">
+      <div class="gloss-item"><div class="gloss-term">Aneuploidy</div><div class="gloss-def">An abnormal number of chromosomes in an egg or embryo, which can prevent a healthy pregnancy. More common in adolescent and older adult eggs.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Antral follicle</div><div class="gloss-def">A fluid-filled follicle visible on ultrasound, containing a maturing egg. These are the ones targeted during egg freezing stimulation.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Cryopreservation</div><div class="gloss-def">Freezing biological material (eggs, tissue) at very low temperatures to preserve it for future use.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Gonadotoxic</div><div class="gloss-def">Harmful to the reproductive organs (ovaries or testes). Many chemotherapy drugs are gonadotoxic.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Hub-and-spoke model</div><div class="gloss-def">A system where ovarian tissue is collected at local hospitals (spokes) and transported to a specialized cryopreservation centre (hub), so patients don't need to travel.</div></div>
+      <div class="gloss-item"><div class="gloss-term">ICSI</div><div class="gloss-def">Intracytoplasmic Sperm Injection — a type of IVF where a single sperm is injected directly into an egg. Recommended for frozen-thawed eggs.</div></div>
+      <div class="gloss-item"><div class="gloss-term">IVF</div><div class="gloss-def">In Vitro Fertilization — eggs are fertilized with sperm in a lab to create embryos, which are then transferred into a uterus.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Laparoscopy</div><div class="gloss-def">A minimally invasive (keyhole) surgical technique using small incisions and a camera. Used for ovarian tissue harvest in OTC.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Oocyte</div><div class="gloss-def">An egg cell. A mature oocyte (MII) is the kind that can be fertilized by sperm.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Ovarian cortex</div><div class="gloss-def">The outer layer of the ovary, which contains the primordial follicle pool. This is the tissue that is harvested and frozen in OTC.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Ovarian reserve</div><div class="gloss-def">The quantity and quality of eggs remaining in your ovaries. Measured by AMH blood test and antral follicle count on ultrasound.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Premature ovarian insufficiency (POI)</div><div class="gloss-def">When the ovaries stop working properly before age 40, causing low estrogen, irregular periods, and reduced fertility.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Primordial follicle</div><div class="gloss-def">The smallest, dormant follicle — the most abundant type. OTC preserves these. They can remain dormant for years before activating.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Random-start stimulation</div><div class="gloss-def">An OC protocol that can be started at any point in the menstrual cycle (not just the start), to shorten the delay before cancer treatment.</div></div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: NEXT STEPS -->
+  <section id="next">
+    <div class="section-label">
+      <div class="num">8</div>
+      <h2>Next Steps</h2>
+    </div>
+    <hr class="divider">
+
+    <div class="next-grid">
+      <div class="next-card">
+        <div class="icon">📋</div>
+        <h3>Bring this document</h3>
+        <p>Take your completed exercise and questions to your next appointment with your fertility specialist and oncologist.</p>
+      </div>
+      <div class="next-card">
+        <div class="icon">👨‍⚕️</div>
+        <h3>Ask for a referral</h3>
+        <p>If you haven't seen a fertility specialist yet, ask your oncologist or family doctor for an urgent referral — time matters.</p>
+      </div>
+      <div class="next-card">
+        <div class="icon">💬</div>
+        <h3>Talk it through</h3>
+        <p>Discuss with your family, and ask your healthcare team about emotional and psychological support resources available to you.</p>
+      </div>
+    </div>
+
+    <div class="callout info" style="margin-top:28px;">
+      <strong>Remember: you are not alone, and this decision doesn't have to be made in isolation.</strong>
+      Your fertility specialist, oncologist, and care team are there to guide you. Both OC and OTC have helped patients preserve their fertility — the right choice depends on your unique situation.
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <strong>DRAFT — Alpha Prototype for Clinician Review</strong><br>
+  Based on: Michaeli J et al. "Fertility Preservation in Adolescents: Oocyte versus Ovarian Tissue Cryopreservation — a Review of Considerations for Clinical Decision-Making." 2026.<br>
+  Content has not yet undergone patient advisory review, health literacy assessment, or IPDAS validation.<br>
+  Not for distribution to patients in current form.
+</footer>
+
+</body>
+</html>
